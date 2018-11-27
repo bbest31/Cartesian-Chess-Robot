@@ -5,9 +5,9 @@ from threading import Event, Thread
 from time import sleep
 from claw import *
 
-yMotor = LargeMotor(OUTPUT_A)
-xMotor = LargeMotor(OUTPUT_C)
-zMotor = LargeMotor(OUTPUT_D)
+#yMotor = LargeMotor(OUTPUT_A)
+#xMotor = LargeMotor(OUTPUT_C)
+#zMotor = LargeMotor(OUTPUT_D)
 #gripperMotor = MediumMotor(OUTPUT_B)
 
 

@@ -1,5 +1,6 @@
 from ev3dev.ev3 import *
 from time import sleep
+from claw import *
 
 class Robot:
     def __init__(self):
@@ -9,12 +10,16 @@ class Robot:
         self.xMotor = LargeMotor(OUTPUT_C)
         self.zMotor = LargeMotor(OUTPUT_D)
 
+        self.xMotor.reset()
+        self.yMotor.reset()
+        self.zMotor.reset()
+
         #Home the X axis
-        homeX()
+        self.homeX()
         #Home the Y axis
-        homeY()
+        self.homeY()
         #Lift the claw
-        clawUp()
+        self.clawUp()
 
         #After the claw has been lifted we initialze it
         self.claw = Claw()
@@ -26,23 +31,23 @@ class Robot:
         self.claw.close()
 
     def homeX(self):
-        while not xTouchSensor.is_pressed:
+        while not self.xTouchSensor.is_pressed:
             self.xMotor.run_forever(speed_sp=230)
         self.xMotor.stop()
 
     def homeY(self):
-        while not yTouchSensor.is_pressed:
+        while not self.yTouchSensor.is_pressed:
             self.yMotor.run_forever(speed_sp=230)
         self.yMotor.stop()
 
     def moveX(self, degrees):
-        timer = degrees/230 + 0.1
+        timer = abs(degrees)/230 + 0.1
         self.xMotor.run_to_rel_pos(position_sp=degrees, speed_sp = 230)
         sleep(timer)
         self.xMotor.stop()
 
-    def moveY(self, degrees)
-        timer = degrees/230 + 0.1
+    def moveY(self, degrees):
+        timer = abs(degrees)/230 + 0.1
         self.yMotor.run_to_rel_pos(position_sp=degrees, speed_sp = 230)
         sleep(timer)
         self.yMotor.stop()

@@ -4,6 +4,7 @@ from time import sleep
 class Claw:
     def __init__(self, port = OUTPUT_B):
         self.motor = MediumMotor(port)
+        self.motor.reset()
         #Close the gripper completely
         convergence_counter = 0
         time_delta = 0.01
