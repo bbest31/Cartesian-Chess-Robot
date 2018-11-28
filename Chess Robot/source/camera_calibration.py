@@ -3,6 +3,7 @@ import cv2
 from datetime import datetime
 from time import sleep
 import numpy as np
+import json
 
 # termination criteria
 criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
@@ -43,5 +44,9 @@ while total_images < 15:
 cv2.destroyAllWindows()
 
 ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::-1], None, None)
+
+
+np.savetxt('camera_matrix.out', mtx)
+np.savetxt('distortion_coeffs.out', dist)
 
 #cv.undistort
