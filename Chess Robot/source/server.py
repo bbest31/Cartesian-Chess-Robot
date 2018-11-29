@@ -46,5 +46,8 @@ class Server:
     def sendTermination(self):
         self.cs.send("EXIT".encode("UTF-8"))
 
+    def sendLowerClaw(self):
+        self.cs.send("LOWER_CLAW".encode("UTF-8"))
+
 
 

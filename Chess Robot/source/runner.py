@@ -19,6 +19,8 @@ while True:
         #Terminate the routine on the client
         #robot.stop()
         break
+    elif(data == "LOWER_CLAW"):
+        robot.clawDown()
     else:
         #If the data we got from the server is not one of the predifined messages
         #We assume (big assumption) that the message will contain the angles in the 
