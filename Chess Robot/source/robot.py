@@ -1,4 +1,5 @@
-from ev3dev.ev3 import *
+from ev3dev2.motor import *
+from ev3dev2.sensor.lego import *
 from time import sleep
 from claw import *
 
