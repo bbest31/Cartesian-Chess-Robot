@@ -30,11 +30,26 @@ def closest_point(line_start, line_end, point):
 def calculate_coordinates(event, x,y, flags, params):
     if event == cv2.EVENT_LBUTTONDOWN:
         print("Distance to left corner")
+        closest_left = closest_point(corners[0],corners[1], (x,y))
+        closest_bottom = closest_point(corners[0],corners[3], (x,y))
+        closest_right = closest_point(corners[3],corners[2], (x,y))
+        closest_top = closest_point(corners[1],corners[2], (x,y))
         print(str(closest_point(corners[0],corners[1], (x,y))))
         current_point = (x,y)
-        closest = closest_point(corners[0],corners[1], (x,y))
-        print(str(np.subtract(current_point,closest)))
+        #Get Horizontal Length by Pythagoras Theorem
+        horizontal_length = ((closest_right[0] - closest_left[0])**2+(closest_right[1] - closest_left[1])**2)**(0.5)
+        #Get Vertical Length by Pythagoras Theorem
+        vertical_length = ((closest_top[0] - closest_bottom[0])**2+(closest_top[1] - closest_bottom[1])**2)**(0.5)
+
+        #Horizontal length until the closest point  (from left to right)
+        horizontal_distance_to_point = ((current_point[0] - closest_left[0])**2+(current_point[1] - closest_left[1])**2)**(0.5)
+        #Vertical length until the closest point (from bottom to top)
+        vertical_distance_to_point = ((current_point[0] - closest_bottom[0])**2+(current_point[1] - closest_bottom[1])**2)**(0.5)
+
+        #In pixels
+        print("Current Point: " + str(current_point))
         #Now we get the percentage eg (current position x)/total length of the x line )both in pixels. This will give us a percentage
+        print("Proportion in X: " + str(horizontal_distance_to_point/horizontal_length) + " Proportion in Y: " + str(vertical_distance_to_point/vertical_length))
         #Then multiply that percentage by 307 to the the milimiter length
 
 #[lower_left, upper_left, upper_right, lower_right]
