@@ -4,8 +4,8 @@ from claw import *
 
 class Robot:
     def __init__(self):
-        self.yTouchSensor = TouchSensor(INPUT_1)
-        self.xTouchSensor = TouchSensor(INPUT_2)
+        #Offset is in milimeters
+        self.yOffset = -100
         self.yMotor = LargeMotor(OUTPUT_A)
         self.xMotor = LargeMotor(OUTPUT_C)
         self.zMotor = LargeMotor(OUTPUT_D)
