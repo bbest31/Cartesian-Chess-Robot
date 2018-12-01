@@ -15,8 +15,6 @@ server.sendOpenClaw()
 server.sendRaiseClaw()
 
 
+# robot = Robot()
 
-#yMotor = LargeMotor(OUTPUT_A)
-#xMotor = LargeMotor(OUTPUT_C)
-#zMotor = LargeMotor(OUTPUT_D)
-#gripperMotor = MediumMotor(OUTPUT_B)
+# robot.xMotor.run_to_rel_pos(position_sp=-360,speed_sp=230)

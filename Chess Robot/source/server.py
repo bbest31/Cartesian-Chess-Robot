@@ -13,7 +13,7 @@ class Server:
         serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
         #We need to use the ip address that shows up in ipconfig for the usb ethernet adapter
         #That handles the comunication between the PC and the crick
-        host = "169.254.82.210"
+        host = "169.254.137.85"
         print ("host: ", host)                        
         port = 9999
         serversocket.bind((host, port))                                  
@@ -61,6 +61,11 @@ class Server:
     def sendCloseClaw(self):
         self.cs.send("CLOSE_CLAW".encode("UTF-8"))
         time.sleep(3.5)
+
+    def sendHome(self):
+        self.cs.send("HOME".encode("UTF-8"))
+        time.sleep(100)
+
 
 
 

@@ -29,6 +29,9 @@ while True:
         robot.openClaw()
     elif(data == "CLOSE_CLAW"):
         robot.closeClaw()
+    elif(data == "HOME"):
+        robot.homeX()
+        robot.homeY()
     else:
         # #If the data we got from the server is not one of the predifined messages
         # #We assume (big assumption) that the message will contain the angles in the 

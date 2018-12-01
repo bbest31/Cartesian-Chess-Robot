@@ -6,7 +6,7 @@ from claw import *
 class Robot:
     def __init__(self):
         self.millimetersPerTickY = 0.14444444
-        self.millimetersPerTickX = 0.07222222
+        self.millimetersPerTickX = 0.05833333
         self.yOffset = 100
         self.yMotor = LargeMotor(OUTPUT_A)
         self.xMotor = LargeMotor(OUTPUT_C)
@@ -37,13 +37,13 @@ class Robot:
 
     def homeX(self):
         degrees = -(self.currentX/self.millimetersPerTickX)
-        self.xMotor.on_for_degrees(SpeedPercent(23),degrees)
+        self.xMotor.on_for_degrees(SpeedPercent(23), abs(degrees))
         self.xMotor.stop()
         self.currentX = 0
 
     def homeY(self):
         degrees = (self.currentY/self.millimetersPerTickY)
-        self.yMotor.on_for_degrees(SpeedPercent(23),degrees)
+        self.yMotor.on_for_degrees(SpeedPercent(23),abs(degrees))
         self.yMotor.stop()
         self.currentY = 0
 
