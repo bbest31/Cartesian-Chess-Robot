@@ -19,7 +19,7 @@ while True:
     data = str(client.pollData())
     if(data == 'EXIT'):
         #Terminate the routine on the client
-        #robot.stop()
+        robot.stop()
         break
     elif(data == "LOWER_CLAW"):
         robot.clawDown()

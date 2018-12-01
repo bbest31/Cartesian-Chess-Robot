@@ -37,4 +37,7 @@ class Claw(MediumMotor):
             sleep(3)
             self.isOpen = False
 
+    def stop(self):
+        self.reset()
+
 #if __name__ == "__main__":

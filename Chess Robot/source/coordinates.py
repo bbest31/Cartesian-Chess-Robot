@@ -90,13 +90,15 @@ current_points = []
 
 while True:
     # get image from webcam
+    print("Get Frame")
     image = webcam.get_current_frame()
     for center_position in corners:
         cv2.circle(image, center_position, 5, (0, 0, 255), -1)
     # display image
-    cv2.imshow('Frame', image)
     for current_point in current_points:
         cv2.circle(image, current_point, 5, (0, 0, 0), -1)
+
+    cv2.imshow('Frame', image)
 
     if (len(current_points) == 2):
         #First, take the initial and position end effector over it
@@ -115,8 +117,10 @@ while True:
         server.sendOpenClaw()
         server.sendRaiseClaw()
         server.sendHome()
-        break
-    
+        current_points.clear()
     key = cv2.waitKey(1)
- 
+    if 'q' == chr(key & 255):
+        break
+
+server.sendTermination() 
 cv2.destroyAllWindows()

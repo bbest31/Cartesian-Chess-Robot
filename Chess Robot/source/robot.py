@@ -6,7 +6,8 @@ from claw import *
 class Robot:
     def __init__(self):
         self.millimetersPerTickY = 0.14444444
-        self.millimetersPerTickX = 0.05833333
+        #self.millimetersPerTickX = 0.05833333
+        self.millimetersPerTickX = 0.0642
         self.yOffset = 100
         self.yMotor = LargeMotor(OUTPUT_A)
         self.xMotor = LargeMotor(OUTPUT_C)
@@ -76,4 +77,10 @@ class Robot:
         self.zMotor.run_to_rel_pos(position_sp=120, speed_sp = 50, stop_action="coast")
         sleep(3.5)
         self.zMotor.stop()
+
+    def stop(self):
+        self.yMotor.reset()
+        self.xMotor.reset()
+        self.zMotor.reset()
+        self.claw.stop()
 
