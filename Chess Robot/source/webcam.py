@@ -9,14 +9,14 @@ class Webcam:
         self.permanent_points = []
         self.temporary_points = []
         self.video_capture = cv2.VideoCapture(0)
-        self.current_frame = self.video_capture.read()[1]
-        cv2.namedWindow("Frame")
-        cv2.setMouseCallback("Frame", self._register_click)  
+        self.current_frame = self.video_capture.read()[1]  
     # create thread for capturing images
     def start(self):
         self.thread = Thread(target=self._update_frame, args=()).start()
 
     def _update_frame(self):
+        cv2.namedWindow("Frame")
+        cv2.setMouseCallback("Frame", self._register_click)
         while(True):
             self.current_frame = self.video_capture.read()[1]
             for permanent_point in self.permanent_points:
@@ -29,15 +29,15 @@ class Webcam:
             key = cv2.waitKey(1)
     #Draw some points permanently
     def add_permament_points(self, point):
-        self.corners.append(point)
+        self.permanent_points.append(point)
     
     #Draw Temporary points
     def add_temporary_points(self, point):
-        self.points.append(point)
+        self.temporary_points.append(point)
 
     #Delete temporary points
     def remove_temporary_points(self):
-        self.points.clear()
+        self.temporary_points.clear()
 
 
     def _register_click(event, x, y, flags, params):
