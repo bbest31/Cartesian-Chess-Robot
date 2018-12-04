@@ -19,12 +19,13 @@ class Webcam:
     def _update_frame(self):
         while(True):
             self.current_frame = self.video_capture.read()[1]
-            for permanent_point in permanent_points:
+            for permanent_point in self.permanent_points:
                 cv2.circle(self.current_frame, permanent_point, 5, (0, 0, 255), -1)
             # display image
-            for temporary_point in temporary_points:
+            for temporary_point in self.temporary_points:
                 cv2.circle(self.current_frame, temporary_point, 5, (0, 0, 0), -1)
             cv2.imshow('Frame', self.current_frame) 
+            print("Cam")
             key = cv2.waitKey(1)
     #Draw some points permanently
     def add_permament_points(self, point):
@@ -39,6 +40,6 @@ class Webcam:
         self.points.clear()
 
 
-   def _register_click(event, x, y, flags, params):
+    def _register_click(event, x, y, flags, params):
         if event == cv2.EVENT_LBUTTONDOWN:
             self.queue.put((x,y))

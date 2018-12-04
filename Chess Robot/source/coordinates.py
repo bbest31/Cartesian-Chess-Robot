@@ -11,7 +11,7 @@ from server import *
 queue = Queue()
 server = Server(9999)
 
-webcam = Webcam()
+webcam = Webcam(queue)
 webcam.start()
 
 #image = cv2.imread("board.jpg")
@@ -61,7 +61,7 @@ def calculate_coordinates(x,y):
 #[lower_left, upper_left, upper_right, lower_right]
 corners = []
 
- while len(corners) < 4:
+while len(corners) < 4:
     #get point from the camera     
     point = queue.get()
     corners.append(point)
