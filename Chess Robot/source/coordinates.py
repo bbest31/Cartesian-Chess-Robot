@@ -11,8 +11,8 @@ from server import *
 queue = Queue()
 server = Server(9999)
 
-webcam = Webcam(queue)
-webcam.start()
+webcam = Webcam()
+webcam.start(queue)
 
 #image = cv2.imread("board.jpg")
 #in milimeters
@@ -63,8 +63,10 @@ corners = []
 
 while len(corners) < 4:
     #get point from the camera     
+    print("Polling queue")
     point = queue.get()
     corners.append(point)
+    print("Adding permanent")
     webcam.add_permament_points(point)
     
 current_points = []
