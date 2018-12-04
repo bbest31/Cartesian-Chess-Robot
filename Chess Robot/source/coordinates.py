@@ -19,15 +19,7 @@ webcam.start()
 side_length = 307
 
 
-def mouse_drawing(event, x, y, flags, params):
-    if event == cv2.EVENT_LBUTTONDOWN:
-        print("Left click")
-        corners.append((x, y))
 
-def add_target(event, x, y, flags, params):
-    if event == cv2.EVENT_LBUTTONDOWN:
-        print("Left click")
-        current_points.append((x, y))
 
 #As explained in http://paulbourke.net/geometry/pointlineplane/
 def closest_point(line_start, line_end, point):
@@ -69,37 +61,17 @@ def calculate_coordinates(x,y):
 #[lower_left, upper_left, upper_right, lower_right]
 corners = []
 
- 
-cv2.namedWindow("Frame")
-cv2.setMouseCallback("Frame", mouse_drawing)
-
-while len(corners) < 4:
-     
-    # get image from webcam
-    image = webcam.get_current_frame()
-    for center_position in corners:
-        cv2.circle(image, center_position, 5, (0, 0, 255), -1)
-    # display image
-    cv2.imshow('Frame', image)
+ while len(corners) < 4:
+    #get point from the camera     
+    point = queue.get()
+    corners.append(point)
+    webcam.add_permament_points(point)
     
-    key = cv2.waitKey(1)
-
-cv2.setMouseCallback("Frame", add_target)
-
 current_points = []
-
 while True:
-    # get image from webcam
-    print("Get Frame")
-    image = webcam.get_current_frame()
-    for center_position in corners:
-        cv2.circle(image, center_position, 5, (0, 0, 255), -1)
-    # display image
-    for current_point in current_points:
-        cv2.circle(image, current_point, 5, (0, 0, 0), -1)
-
-    cv2.imshow('Frame', image)
-
+    point = queue.get()
+    current_points.append(point)
+    webcam.add_temporary_points(point)
     if (len(current_points) == 2):
         #First, take the initial and position end effector over it
         #Make sure to account for the 100 mm in offset for the y axis and the 19mm for x and y
@@ -118,9 +90,6 @@ while True:
         server.sendRaiseClaw()
         server.sendHome()
         current_points.clear()
-    key = cv2.waitKey(1)
-    if 'q' == chr(key & 255):
-        break
+        webcam.remove_temporary_points()
 
 server.sendTermination() 
-cv2.destroyAllWindows()
