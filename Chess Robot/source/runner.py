@@ -32,6 +32,7 @@ while True:
     elif(data == "HOME"):
         robot.homeX()
         robot.homeY()
+        client.sendDone()
     else:
         # #If the data we got from the server is not one of the predifined messages
         # #We assume (big assumption) that the message will contain the angles in the 

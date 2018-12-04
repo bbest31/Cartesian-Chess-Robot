@@ -64,7 +64,7 @@ class Server:
 
     def sendHome(self):
         self.cs.send("HOME".encode("UTF-8"))
-        time.sleep(100)
+        reply = self.cs.recv(128).decode("UTF-8")
 
 
 

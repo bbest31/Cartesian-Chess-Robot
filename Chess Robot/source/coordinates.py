@@ -92,6 +92,7 @@ while True:
         server.sendRaiseClaw()
         server.sendHome()
         current_points.clear()
+        print("Clearing temporary points")
         webcam.remove_temporary_points()
 
 server.sendTermination() 
