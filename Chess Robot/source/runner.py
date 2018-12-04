@@ -55,4 +55,4 @@ while True:
         # robot.homeY()
         robot.moveX(x_distance)
         robot.moveY(y_distance)
-        client.sendDone()
+    client.sendDone()
