@@ -40,6 +40,7 @@ class Webcam:
         self.temporary_points.clear()
 
 
-    def _register_click(event, x, y, flags, params):
+    def _register_click(event, x, y, flags, params, _):
+        print(_)
         if event == cv2.EVENT_LBUTTONDOWN:
             self.queue.put((x,y))
