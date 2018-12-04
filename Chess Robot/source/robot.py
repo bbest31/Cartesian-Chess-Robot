@@ -10,6 +10,7 @@ class Robot:
         self.millimetersPerTickX = 0.0642
         self.yOffset = 100
         self.yMotor = LargeMotor(OUTPUT_A)
+        self.yMotor.stop_action = 'brake'
         self.xMotor = LargeMotor(OUTPUT_C)
         self.zMotor = LargeMotor(OUTPUT_D)
         self.currentY = 0 
@@ -29,6 +30,9 @@ class Robot:
 
         #After the claw has been lifted we initialze it
         self.claw = Claw()
+        
+    def __del__(self):
+        self.zMotor.stop(strop_action='coast')
 
     def openClaw(self):
         self.claw.open()
