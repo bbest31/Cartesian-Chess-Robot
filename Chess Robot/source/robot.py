@@ -32,8 +32,8 @@ class Robot:
         self.claw = Claw()
         
     def __del__(self):
-        self.zMotor.stop(strop_action='coast')
-
+        self.stop()
+        
     def openClaw(self):
         self.claw.open()
 

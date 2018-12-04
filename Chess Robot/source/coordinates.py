@@ -90,7 +90,6 @@ current_points = []
 
 while True:
     # get image from webcam
-    print("Get Frame")
     image = webcam.get_current_frame()
     for center_position in corners:
         cv2.circle(image, center_position, 5, (0, 0, 255), -1)

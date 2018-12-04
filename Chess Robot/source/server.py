@@ -49,27 +49,22 @@ class Server:
     def sendLowerClaw(self):
         self.cs.send("LOWER_CLAW".encode("UTF-8"))
         reply = self.cs.recv(128).decode("UTF-8")
-        queue.put(reply)
     
     def sendRaiseClaw(self):
         self.cs.send("RAISE_CLAW".encode("UTF-8"))
         reply = self.cs.recv(128).decode("UTF-8")
-        queue.put(reply)
 
     def sendOpenClaw(self):
         self.cs.send("OPEN_CLAW".encode("UTF-8"))
         reply = self.cs.recv(128).decode("UTF-8")
-        queue.put(reply)
 
     def sendCloseClaw(self):
         self.cs.send("CLOSE_CLAW".encode("UTF-8"))
         reply = self.cs.recv(128).decode("UTF-8")
-        queue.put(reply)
 
     def sendHome(self):
         self.cs.send("HOME".encode("UTF-8"))
         reply = self.cs.recv(128).decode("UTF-8")
-        queue.put(reply)
 
 
 
