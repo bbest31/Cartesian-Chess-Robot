@@ -13,7 +13,7 @@ class Server:
         serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
         #We need to use the ip address that shows up in ipconfig for the usb ethernet adapter
         #That handles the comunication between the PC and the crick
-        host = "169.254.82.210"
+        host = "169.254.137.85"
         print ("host: ", host)                        
         port = 9999
         serversocket.bind((host, port))                                  
@@ -29,7 +29,7 @@ class Server:
     #       joint_angle [Float]: The angle by which we want to joint to move
     #       queue [Thread-safe Queue]: Mutable data structure to store (and return)
     #             the messages received from the client
-    def sendDistances(self, x_distance, y_distance, queue):
+    def sendDistances(self, x_distance, y_distance):
         #Format in which the client expects the data
         # angle1    angle2
         print(str(x_distance) +  " " + str(y_distance))
@@ -39,7 +39,6 @@ class Server:
         #Waiting for the client (ev3 brick) to let the server know
         #That it is done moving
         reply = self.cs.recv(128).decode("UTF-8")
-        queue.put(reply)
 
     #Sends a termination message to the client. This will cause the client
     #to exit "cleanly", after stopping the motors.

@@ -73,12 +73,12 @@ class Robot:
         self.currentY += milli
 
     def clawUp(self):
-        self.zMotor.run_to_rel_pos(position_sp=-120, speed_sp = 50, stop_action="hold")
-        sleep(1.8)
+        self.zMotor.run_to_rel_pos(position_sp=-170, speed_sp = 50, stop_action="hold")
+        sleep(3.5)
         self.zMotor.stop()
 
     def clawDown(self):
-        self.zMotor.run_to_rel_pos(position_sp=120, speed_sp = 50, stop_action="coast")
+        self.zMotor.run_to_rel_pos(position_sp=170, speed_sp = 50, stop_action="coast")
         sleep(3.5)
         self.zMotor.stop()
 

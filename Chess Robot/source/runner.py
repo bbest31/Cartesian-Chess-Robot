@@ -41,6 +41,7 @@ while True:
         #for char in data:
         #    print(chr(char), end=', ')
         #print()
+        print("data "+str(data))
         x_distance, y_distance = map(float,map(str,data.split(','))) 
         # #This will make sure that both angles are at most 360 degrees. In addition,
         # #it will consider both, the clockwise and counterclockwise rotations to reach

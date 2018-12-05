@@ -72,13 +72,14 @@ while len(corners) < 4:
 current_points = []
 while True:
     point = queue.get()
+    print("Getting movement point " + str(point))
     current_points.append(point)
     webcam.add_temporary_points(point)
     if (len(current_points) == 2):
         #First, take the initial and position end effector over it
         #Make sure to account for the 100 mm in offset for the y axis and the 19mm for x and y
         (x1,y1) = calculate_coordinates(current_points[0][0], current_points[0][1])
-        server.sendDistances(-x1 + 19, -(100 + y1) + 19, queue)
+        server.sendDistances(-x1 + 19, -(100 + y1) + 19)
         server.sendLowerClaw()
         server.sendCloseClaw()
         server.sendRaiseClaw()
@@ -86,7 +87,7 @@ while True:
         (x2,y2) = calculate_coordinates(current_points[1][0], current_points[1][1])
         delta_x = x2 - x1
         delta_y = y2 - y1
-        server.sendDistances(-delta_x, -delta_y, queue)
+        server.sendDistances(-delta_x, -delta_y)
         server.sendLowerClaw()
         server.sendOpenClaw()
         server.sendRaiseClaw()
