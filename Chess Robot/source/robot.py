@@ -5,10 +5,12 @@ from claw import *
 
 class Robot:
     def __init__(self):
+
         self.millimetersPerTickY = 0.14444444
         #self.millimetersPerTickX = 0.05833333
         self.millimetersPerTickX = 0.0642
         self.yOffset = 100
+
         self.yMotor = LargeMotor(OUTPUT_A)
         self.yMotor.stop_action = 'brake'
         self.xMotor = LargeMotor(OUTPUT_C)
