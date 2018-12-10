@@ -1,36 +1,43 @@
-from ev3dev.ev3 import *
+from ev3dev2.motor import *
 from time import sleep
 
-class Claw:
+class Claw(MediumMotor):
     def __init__(self, port = OUTPUT_B):
-        self.motor = MediumMotor(port)
-        self.motor.reset()
+        MediumMotor.__init__(self,port)
+        self.reset()
         #Close the gripper completely
         convergence_counter = 0
         time_delta = 0.01
-        tachometer_reading = self.motor.position
+        tachometer_reading = self.position
         while convergence_counter < 3:
-            self.motor.run_forever(speed_sp=-360)
+            self.on(-24)
             sleep(time_delta)
-            if tachometer_reading == self.motor.position:
+            if tachometer_reading == self.position:
                 convergence_counter = convergence_counter + 1
-            tachometer_reading = self.motor.position
-        self.motor.stop()
+            tachometer_reading = self.position
+        self.stop()
         #Gripper is closed at this point
-        self.motor.run_to_rel_pos(position_sp=700, speed_sp = 360)
+        
+        #self.motor.run_to_rel_pos(position_sp=700, speed_sp = 360)
+        self.on_for_degrees(24,700)
         sleep(3)
         self.isOpen = True
 
     def open(self):
         if not self.isOpen:
-            self.motor.run_to_rel_pos(position_sp=700, speed_sp = 360)
+            #self.motor.run_to_rel_pos(position_sp=700, speed_sp = 360)
+            self.on_for_degrees(24,700)
             sleep(3)
             self.isOpen = True
 
     def close(self):
         if self.isOpen:
-            self.motor.run_to_rel_pos(position_sp=-700, speed_sp = 360)
+            #self.motor.run_to_rel_pos(position_sp=-700, speed_sp = 360)
+            self.on_for_degrees(-24,700)
             sleep(3)
             self.isOpen = False
+
+    def stop(self):
+        self.reset()
 
 #if __name__ == "__main__":
