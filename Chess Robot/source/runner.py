@@ -11,7 +11,12 @@ from time import sleep
 robot = Robot()
 #Attempt to connect to server
 client = Client(9999)
+#After the robot is instantiated and initialized in its starting position, we will move thwe end effector carriage
+#100mm backwards so that the remote player has a clear picture of the board
 robot.moveY(100)
+#After the robot moves the 100mm backwards, set the new position as the home for the Y axis
+#This will make homing back easier, as whenever we decide to home the Y axis again, it will home 
+#100mm behind the board leaving a clear picture
 robot.currentY = 0
 
 while True:
@@ -30,31 +35,18 @@ while True:
     elif(data == "CLOSE_CLAW"):
         robot.closeClaw()
     elif(data == "HOME"):
+        #Home the robot. This is usually done after a movement has been executed 
+        #So that the remote player has a clear view of the board for their next movement
         robot.homeX()
         robot.homeY()
         client.sendDone()
     else:
         # #If the data we got from the server is not one of the predifined messages
         # #We assume (big assumption) that the message will contain the angles in the 
-        # #Agreed format: x_motor_angle,y_motor_angle
-        # #We convert the angles to float after splitting the message on the tab
-        #for char in data:
-        #    print(chr(char), end=', ')
-        #print()
+        # #Agreed format: x_distance,y_distance (both given in milimetres)
         print("data "+str(data))
         x_distance, y_distance = map(float,map(str,data.split(','))) 
-        # #This will make sure that both angles are at most 360 degrees. In addition,
-        # #it will consider both, the clockwise and counterclockwise rotations to reach
-        # #the desired position for each motor and will pick the smallest one. So that the chances of making
-        # #very large rotations are lessened.
-        # #x_motor_angle = int(x_motor_angle) % 360  
-        # #x_motor_angle = min([x_motor_angle, x_motor_angle - 360], key=lambda x: abs(x))
-        # #y_motor_angle = int(y_motor_angle) % 360
-        # #y_motor_angle = min([y_motor_angle, y_motor_angle - 360], key=lambda x: abs(x))
-        # #After the proper rotation angle has been selected, we send the move command to the motors
-        # print("Moving X: " + str(x_motor_angle)+ " Moving Y: " + str(y_motor_angle))
-        # robot.moveX(x_motor_angle)
-        # robot.homeY()
+        #Move the robot by the specified amount in milimetres.
         robot.moveX(x_distance)
         robot.moveY(y_distance)
         client.sendDone()

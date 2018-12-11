@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # RUN ON LAPTOP USING PYTHON 3.6
 
-#This class handles the Server side of the comunication between the laptop and the brick.
+#This class handles the Server side of the comunication between the laptop and the brick via TCP sockets
 
 import socket
 import time
@@ -24,15 +24,12 @@ class Server:
         
 
 
-    #Sends set of angles to the brick via TCP. 
-    #input: base_angle [Float]: The angle by which we want the base to move
-    #       joint_angle [Float]: The angle by which we want to joint to move
-    #       queue [Thread-safe Queue]: Mutable data structure to store (and return)
-    #             the messages received from the client
+    #Sends a distance tuple to the brick via TCP. 
+    #input: x_distance [Float]: The distance in milimitres by which we want the X axis to move (sign determines direction)
+    #       y_distance [Float]: The distance in milimitres by which we want the Y axis to move (sign determines direction)
     def sendDistances(self, x_distance, y_distance):
         #Format in which the client expects the data
-        # angle1    angle2
-        print(str(x_distance) +  " " + str(y_distance))
+        # x_distance,y_distance
         data = str(x_distance)+","+str(y_distance)
         print("Sending Data: (" + data + ") to robot.")
         self.cs.send(data.encode("UTF-8"))
@@ -61,6 +58,8 @@ class Server:
         self.cs.send("CLOSE_CLAW".encode("UTF-8"))
         time.sleep(3.5)
 
+    #Send message to the brick via TCP with the home command.
+    #This will make sure that the brick sends both the X and Y axis to their initial positions
     def sendHome(self):
         self.cs.send("HOME".encode("UTF-8"))
         reply = self.cs.recv(128).decode("UTF-8")
