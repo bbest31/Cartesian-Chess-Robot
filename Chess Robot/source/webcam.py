@@ -74,6 +74,8 @@ class Webcam:
 
     #Delete temporary points
     def remove_temporary_points(self):
+        #Since the temporary_points list is also bein used by te update_frame thread
+        #we acquire a lock in order to make the point removal operation thread safe.
         self.lock.acquire()
         try:
             self.temporary_points.clear()
